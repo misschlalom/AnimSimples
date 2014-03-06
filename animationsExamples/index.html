@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
+<link href="animations.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+
+	function detectmob() { 
+	 if( navigator.userAgent.match(/Android/i)
+	 || navigator.userAgent.match(/webOS/i)
+	 || navigator.userAgent.match(/iPhone/i)
+	 || navigator.userAgent.match(/iPad/i)
+	 || navigator.userAgent.match(/iPod/i)
+	 || navigator.userAgent.match(/BlackBerry/i)
+	 || navigator.userAgent.match(/Windows Phone/i)
+	 ){
+		return true;
+	  }
+	 else {
+		return false;
+	  }
+	}
+</script>
+<title>Testing Animations</title>
+
+</head>
+
+<body>
+ <script type="text/javascript" src="janis.js"></script>
+ 
+ <a href="http://misschlalom.com/"><div class="vestibule">VESTIBULE</div></a>
+<div><h1>Light animations for any devices include mobile...</h1></div> 
+<div id="premiere"class="playground test1">
+	<div  id="test1" class="test "></div>
+   <script type="text/javascript">
+	
+	if(detectmob()==false)
+	{
+		document.querySelector('#test1').addEventListener('mouseover', function() {
+			var where = (this.style.top == "109px" ? "0px" : "109px");
+			Janis("#test1").chain().animate({
+				"top" : where,
+				"left" : where,
+				"duration": 1000,
+				"delay": 0,
+				"easing": "ease-in-out"
+			}).execute();
+		}, false);
+	}
+	else
+	{
+		document.querySelector('#test1').addEventListener('touchstart', function() {
+			var where = (this.style.top == "109px" ? "0px" : "109px");
+			Janis("#test1").chain().animate({
+				"top" : where,
+				"left" : where,
+				"duration": 1000,
+				"delay": 0,
+				"easing": "ease-in-out"
+			}).execute();
+		}, false);
+	}
+	
+	</script>
+    </div>
+    
+    <div class="playground test4">
+        <div id="test4" class="test"></div>
+        <div class="baton"></div>
+    
+        <script>
+			var test4 = Janis(document.getElementById('test4'));
+			test4.chain().animate({
+				'rotate': '359deg',
+				'duration': 5000,
+				'delay': 0
+			}).animate({
+				'rotate': '0deg',
+				'delay': 0,
+				'duration': 0
+			}).loop();
+        </script>
+    </div>
+    
+    <div class="playground test2">
+ 	
+    <div id="BGtest2">
+        <div id="test2" class="test"></div>
+    </div>
+   
+        <script>
+			var janisTest2 = Janis("#test2");
+    janisTest2.chain().animate({
+		"opacity" : "0",
+        "duration" : 5000,
+        "easing": "ease-in-out"
+    }).animate({
+		"opacity" : "1",
+        "duration" : 2000,
+        "easing": "ease"
+    }).loop();
+    
+    document.querySelector("#test2").addEventListener('click', function() {
+        if (janisTest2.paused) {
+            janisTest2.play();
+        } else {
+            janisTest2.pause();
+        }
+    }, false);
+        </script>
+    </div>
+    
+   <div class="playground test3">
+    	<script>
+			var pg = document.querySelector(".test3"), count = 0;
+
+    window['janis-bounce'] = window.setInterval(function() {
+        var el = document.createElement("div"), myJanis;
+        el.className = "subject";
+        el.style.left = Math.floor(Math.random() * (pg.offsetWidth - 50)) + "px";
+        pg.appendChild(el);
+        
+        myJanis = Janis(el)
+        
+        myJanis.chain().animate({
+            "top": (pg.offsetHeight - el.offsetHeight) + "px",
+            "delay" : 0,
+            "duration" : 2500,
+            "opacity": 0.1,
+            "easing" : "ease-in-out",
+			"background-color":"#FFBF00"
+        }).animate({
+            "top": Math.max(20, Math.floor(Math.random() * (pg.offsetHeight - el.offsetHeight))) + "px",
+            "delay" : 0,
+            "duration" : 1500,
+            "opacity": 0.2,
+            "easing" : "ease-out",
+			"background-color":"#01DFD7"
+        }).loop();
+        
+        el.addEventListener("click", function() {
+            if (myJanis.paused) {
+                myJanis.play();
+            } else {
+                myJanis.pause();
+            }                
+        }, false);
+        
+        if (++count === 10) window.clearInterval(window['janis-bounce']);
+    }, 100);
+
+        </script>
+        
+    </div>
+    <div class="playground">
+        	<div id="scene" class="scene2"></div>
+    </div>
+   <!-- <script>
+	var playgrounds = document.querySelectorAll('.playground'), i;
+	for (i = 0; i < playgrounds.length; ++i) {
+        playgrounds[i].addEventListener("mouseover", function() {
+            var bq = this.querySelector('blockquote');
+            bq.style.display = 'block';
+            Janis(bq).animate({ 'opacity': 1, 'left': '205px', 'duration': 500 });
+        }, false);
+        playgrounds[i].addEventListener("mouseout", function() {
+            var bq = this.querySelector('blockquote');
+            bq.style.display = 'block';
+            Janis(bq).animate({ 'opacity': 0, 'duration': 500, 'callback': function(opts) {
+                bq.style.left = '0';
+                bq.style.display = 'none';
+            }});
+        }, false);
+    }
+ </script>-->
+</body>
+</html>
